@@ -1,4 +1,4 @@
-.headerContainer{
+.headerContainer {
     height: 5rem;
     border-bottom: 1px solid var(--gray-800);
 }
@@ -26,7 +26,8 @@
 
             transition: color 0.2s;
 
-            & + a { // espaçando do 2 item em diante.
+            & + a {
+                // espaçando do 2 item em diante.
                 margin-left: 2rem;
             }
 
@@ -40,7 +41,7 @@
             }
 
             &:active::after {
-                content: '';
+                content: "";
                 height: 3px;
                 border-radius: 3px 3px 0 0;
                 width: 100%;
@@ -50,5 +51,9 @@
                 background: var(--yellow-500);
             }
         }
+    }
+
+    button {
+        margin-left: auto;
     }
 }
