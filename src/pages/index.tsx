@@ -1,8 +1,20 @@
+import { GetStaticProps } from 'next';
 import Head from 'next/head'
 import { SubscribeButton } from '../components/SubscribeButton'
 import { stripe } from '../services/stripe';
 
 import styles from './home.module.scss'
+
+// Formas de popular pagina com informações via API
+
+// Client-side - Quando não é necessário indexação, como uma ação do usuário.
+// Server-side - Se faz necessário a indexação, informações em tempo real, do usuário que ta acessando e do contexto geral.
+// Static Site Generation - Casos onde o mesmo html é gerado para todas as pessoas, por exemplo: Home Blog, Post Blog, Pagina de Produto, Pagina de Categoria e dentre outros.
+
+//Exemplo Post do blog
+
+// Conteudo (SSG)
+// Comentários (Client-side)
 
 interface HomeProps {
   product: {
@@ -11,7 +23,7 @@ interface HomeProps {
   }
 }
 
-export default function Home({product}: HomeProps) {
+export default function Home({ product }: HomeProps) {
   console.log(product);
 
   return (
@@ -28,7 +40,7 @@ export default function Home({product}: HomeProps) {
             Get access to all the publications <br />
             <span>for {product.amount} month</span>
           </p>
-          <SubscribeButton priceId={product.priceId}/>
+          <SubscribeButton priceId={product.priceId} />
         </section>
 
         <img src="/images/avatar.svg" alt="Girl coding" />
@@ -37,12 +49,12 @@ export default function Home({product}: HomeProps) {
   )
 }
 //Obs: sempre criar essa função async com o nome getServerSideProps
-export const getServerSideProps = async () => {
+export const getStaticProps:GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1KdjvtCYpOzohnirpSPY7yo8'
-  // para pegar informações extrar, como nome do produto do Stripe
-  // , {
-  //   expand: ['product']    
-  // }  
+    // para pegar informações extras, como nome do produto do Stripe
+    // , {
+    //   expand: ['product']    
+    // }  
   )
 
   const product = {
@@ -56,6 +68,6 @@ export const getServerSideProps = async () => {
   return {
     props: {
       product
-    }
+    },revalidate: 60 * 60 * 24, // 24 hours
   }
 }
