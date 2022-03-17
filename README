@@ -1,4 +1,6 @@
-Site de noticias relacionado a TI
+# Site de noticias relacionado a TI
 
-Stack Nextjs, Stripe (API comercial), faunadb (Banco de dados recomendado para Serveless)
+- Stack Nextjs,
+- Stripe (API comercial)
+- faunadb (Banco de dados recomendado para Serveless)
 
