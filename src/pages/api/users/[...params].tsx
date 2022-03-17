@@ -8,5 +8,6 @@ export default (request: NextApiRequest, response: NextApiResponse) => {
         { id:2, name:'Vitor'},
         { id:3, name:'Coelho'},
     ]
+    
     return response.json(users)
 }
