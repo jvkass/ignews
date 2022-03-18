@@ -2,6 +2,13 @@
 
 - Stack Nextjs,
 - Stripe (API comercial)
+
+-- Base Event Webhooks
+
+stripe login
+
+stripe listen --forward-to localhost:3000/api/webhooks
+
 - faunadb (Banco de dados recomendado para Serveless)
 
 # Example - .env.local
