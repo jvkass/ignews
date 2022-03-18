@@ -1,4 +1,4 @@
-import { query } from 'faunadb';
+import { Query, query } from 'faunadb';
 import NextAuth from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import { fauna } from '../../../services/fauna';
@@ -21,9 +21,25 @@ export default NextAuth({
 
             try {
                 await fauna.query(
-                    query.Create(
-                        query.Collection('users'),
-                        { data: { email } }
+                    query.If(
+                        query.Not(
+                            query.Exists(
+                                query.Match(
+                                    query.Index('user_by_email'),
+                                    query.Casefold(user.email)
+                                )
+                            )
+                        ),
+                        query.Create(
+                            query.Collection('users'),
+                            { data: { email } }
+                        ),
+                        query.Get(
+                            query.Match(
+                                query.Index('user_by_email'),
+                                query.Casefold(user.email)
+                            )
+                        )
                     )
                 )
                 return true;
