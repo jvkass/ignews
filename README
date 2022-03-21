@@ -3,7 +3,7 @@
 - Stack Nextjs,
 - Stripe (API comercial)
 
--- Base Event Webhooks
+-- Base Event Webhooks - Comands stripe cli terminal
 
 stripe login
 
