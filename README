@@ -11,11 +11,48 @@ stripe listen --forward-to localhost:3000/api/webhooks
 
 - faunadb (Banco de dados recomendado para Serveless)
 
+# JAMStack
+
+=> Javascript
+=> API
+=> Markup
+
+----------------------------------
+
+# CMS (Content Management System)
+
+- Wordpress
+- Drupal (Não utilizado)
+- Joomla (Não utilizado)
+- Magento (E-commerce, mas não recomendado)
+
+# Headless CMS (Painel de administração + API HTTP,  GraphQL, SDK)
+
+- Strapi (Projetos menores)
+- Ghost (Blog)
+- Keystone
+
+# CMS pagos
+
+- GraphCMS
+[x] Prismic CMS (Escolhido)
+- Contentful
+
+- Shopify (e-commerce)
+- Saleor (e-commerce)
+
 # Example - .env.local
 
 # Stripe
 
-STRIPE_API_KEY= 
+STRIPE_API_KEY=sk_test_51KdjrlCYpOzohnirzrp5SQ18f0o3YcScW74LgCNnjeGRfsWPT71LFQp2BG8n3VVaKbhIlnFQnL2GlYL86gNdlFGb009mGX6wyf
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=pk_test_51KdjrlCYpOzohnir7Gjk5K9RRfI1YYmfXYEmBPBcPLZqAJvMLVxa1H9ENmZx4hzY33gj83y0ekJDeDKh2Zo3I4EF0090GzQwF4
+
+STRIPE_WEBHOOK_SECRET=whsec_ae448d1f197d16162666458b3e87cf0879e1707003f9f153af834ce269949b0d
+
+STRIPE_SUCCESS_URL=http://localhost:3000/posts
+STRIPE_CANCEL_URL=http://localhost:3000
+
 
 # GitHub
 
@@ -24,8 +61,9 @@ GITHUB_CLIENT_SECRET = 703263872be55f82f783adbb2a15e61f58311ee6
 
 # FaunaDB
 
-FAUNADB_KEY= 
+FAUNADB_KEY=fnAEh6z_yLAAQ9608akUYGOLCtfA6Gp0bMYkMBt6
 
 # JWT 
 
 SIGNING_KEY=bee2a73540c44272d71dd3936f06476e
+
