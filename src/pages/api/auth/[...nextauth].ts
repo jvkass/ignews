@@ -1,4 +1,4 @@
-import { Query, query } from 'faunadb';
+import { query } from 'faunadb';
 import NextAuth from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import { fauna } from '../../../services/fauna';
@@ -16,6 +16,43 @@ export default NextAuth({
         }),
     ],
     callbacks: {
+        async session({session}) {
+            try {
+                const userActiveSubscription = await fauna.query(
+                    query.Get(
+                        query.Intersection([
+                            query.Match(
+                                query.Index('subscription_by_user_ref'),
+                                query.Select(
+                                    "ref",
+                                    query.Get(
+                                        query.Match(
+                                            query.Index('user_by_email'),
+                                            query.Casefold(session.user.email)
+                                        )
+                                    )
+                                )
+                            ),
+                            query.Match(
+                                query.Index('subscription_by_status'),
+                                "active"
+                            )
+                        ])
+                    )
+                )
+    
+                return {
+                    ...session,
+                    activeSubscription: userActiveSubscription
+                };
+            } catch {
+                return{
+                    ...session,
+                    activeSubscription:null,
+                };
+            }
+        },
+
         async signIn({ user, account, profile }) { //Registro do email do usuário do github
             const { email } = user;
 
