@@ -55,9 +55,11 @@ export default function Post({ post }: PostPreviewProps) {
     )
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths: GetStaticProps = async () => {
     return {
-        paths: [],
+        paths: [
+            {params: {slug:'typescript-por-tras-do-superset-de-javascript'}}
+        ],
         fallback: 'blocking'
     }
 }
