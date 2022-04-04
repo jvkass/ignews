@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import { getSession, useSession } from "next-auth/react"
 import Head from "next/head"
 import Link from "next/link"
@@ -55,13 +55,11 @@ export default function Post({ post }: PostPreviewProps) {
     )
 }
 
-export const getStaticPaths: GetStaticProps = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
     return {
-        paths: [
-            {params: {slug:'typescript-por-tras-do-superset-de-javascript'}}
-        ],
-        fallback: 'blocking'
-    }
+        paths: [],
+        fallback: 'blocking' // bloking - não carregou todas as paginas
+    };
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -69,7 +67,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const prismic = getPrismicClient()
 
-    const response = await prismic.getByUID('post', String(slug), {})
+    const response = await prismic.getByUID<any>('post', String(slug), {})
 
     const post = {
         slug,
